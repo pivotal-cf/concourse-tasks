@@ -14,7 +14,7 @@ outputs:
 - name: output-repo
 
 run:
-  path: concourse-tasks/bump-vendored-golang/task
+  path: concourse-tasks/go/bump-vendored-golang/task
 
 params:
   BLOBSTORE_ACCESS_KEY_ID:
