@@ -27,12 +27,12 @@ jobs:
 - name: bump-golang-release
   plan:
   - aggregate:
+    - get: golang-release
+      trigger: true
     - get: release
       resource: my-release
     - get: concourse-tasks
       resource: concourse-tasks
-    - get: golang-release
-      trigger: true
   - task: bump-golang
     file: concourse-tasks/go/bump-vendored-golang/task.yml
     params:
