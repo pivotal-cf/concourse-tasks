@@ -17,10 +17,9 @@ run:
   path: concourse-tasks/go/bump-vendored-golang/task
 
 params:
-  BLOBSTORE_ACCESS_KEY_ID:
-  BLOBSTORE_SECRET_ACCESS_KEY:
-  GIT_USER_EMAIL:
-  GIT_USER_NAME:
+  BLOBSTORE_ACCESS_KEY_ID: # ID of the blobstore access key for the bosh release.
+  BLOBSTORE_SECRET_ACCESS_KEY: # Secret of the blobstore access key for the bosh release.
+  GIT_USER_EMAIL: # The email of the committer to be used when pushing the updated repo
+  GIT_USER_NAME: # The username of the committer to be used when pushing the updated repo
   GOLANG_DIR: golang-release
   RELEASE_DIR: release
-  RELEASE_NAME:
