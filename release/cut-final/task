@@ -27,7 +27,7 @@ function version {
   echo ${major}.${minor}.${patch}
 }
 
-function create_blobstore_files {
+function create_private_yaml {
   cat > config/private.yml <<EOF
 ---
 blobstore:
@@ -45,6 +45,8 @@ pushd ${RELEASE_DIR}
   if [[ -n "${FETCH_DEPENDENCIES_SCRIPT}" ]]; then
     ${FETCH_DEPENDENCIES_SCRIPT}
   fi
+
+  create_private_yaml
 
   VERSION=$(version)
   bosh -n create-release \
