@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+set -ex
+
+WORKSPACE="$(pwd)"
+RELEASE_DIR="${WORKSPACE}/release"
+
+function version {
+  local old_version=$(git describe --abbrev=0 --tags || echo 0.0.0)
+  local major_minor_patch=( ${old_version//./ } )
+  local major=${major_minor_patch[0]}
+  local minor=${major_minor_patch[1]}
+  local patch=${major_minor_patch[2]}
+
+  if [ ${BUMP} == "MAJOR" ]; then
+    major=`expr ${major} + 1`
+    minor=0
+    patch=0
+  fi
+  if [ ${BUMP} == "MINOR" ]; then
+    minor=`expr ${minor} + 1`
+    patch=0
+  fi
+  if [ ${BUMP} == "PATCH" ]; then
+    patch=`expr ${patch} + 1`
+  fi
+
+  echo ${major}.${minor}.${patch}
+}
+
+function create_blobstore_files {
+  cat > config/private.yml <<EOF
+---
+blobstore:
+  options:
+    credentials_source: static
+    access_key_id: ${BLOBSTORE_ACCESS_KEY_ID}
+    secret_access_key: ${BLOBSTORE_SECRET_ACCESS_KEY}
+EOF
+}
+
+git config --global user.email "${GIT_USER_EMAIL}"
+git config --global user.name "${GIT_USER_NAME}"
+
+pushd ${RELEASE_DIR}
+  if [[ -n "${FETCH_DEPENDENCIES_SCRIPT}" ]]; then
+    ${FETCH_DEPENDENCIES_SCRIPT}
+  fi
+
+  VERSION=$(version)
+  bosh -n create-release \
+    --tarball=${WORKSPACE}/output-release/release-${VERSION}.tgz \
+    --version=${VERSION} \
+    --final
+
+  git add -A
+  git commit -m "[ci skip] Cut final release $VERSION"
+  SHA=$(git rev-parse HEAD)
+popd
+
+echo ${VERSION} > output-metadata/tag
+echo ${SHA} > output-metadata/commit
+echo "${GITHUB_RELEASE_NAME} ${VERSION}" > output-metadata/name
+cp -a ${RELEASE_DIR}/. ${WORKSPACE}/output-repo

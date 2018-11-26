@@ -7,19 +7,20 @@ image_resource:
     repository: relintdockerhubpushbot/cf-deployment-concourse-tasks
 
 inputs:
-- name: concourse-tasks
 - name: release
-- name: golang-release
 outputs:
+- name: output-metadata
+- name: output-release
 - name: output-repo
 
 run:
-  path: concourse-tasks/go/bump-vendored-golang/task
+  path: concourse-tasks/release/cut-final/task
 
 params:
   BLOBSTORE_ACCESS_KEY_ID: # ID of the blobstore access key for the bosh release
   BLOBSTORE_SECRET_ACCESS_KEY: # Secret of the blobstore access key for the bosh release
   GIT_USER_EMAIL: # The email of the committer to be used when pushing the updated repo
   GIT_USER_NAME: # The username of the committer to be used when pushing the updated repo
-  GOLANG_DIR: golang-release
-  RELEASE_DIR: release
+  BUMP: # PATCH, MINOR, or MAJOR
+  GITHUB_RELEASE_NAME: # The name that will be given to the release on Github
+  FETCH_DEPENDENCIES_SCRIPT: # The path to a script to fetch dependencies prior to creating the release (relative to release input)
