@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
 set -exu
-export DEPLOYMENTS="$PWD/deployments"
+
+export PATH="$PATH:$PWD"
+
 export DEBIAN_FRONTEND=noninteractive
-apt-get -y -qq update
-apt-get -y -qq install expect
+apt-get -y -qq update && apt-get -y -qq install expect
+
+curl -o fly -L https://github.com/concourse/concourse/releases/download/v3.14.1/fly_linux_amd64
+chmod +x fly
+
 fly -t superpipe login -k -n $TEAM_NAME \
   -c https://concourse.superpipe.gcp.pcf-metrics.com \
   -u $USER \
   -p $PASSWORD
 fly -t superpipe sync
+
 $(dirname $0)/check-pipeline-deployment.exp
