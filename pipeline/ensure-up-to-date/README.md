@@ -41,6 +41,15 @@ resources:
     branch: master
     private_key: ((private-key))
 
+- name: before_workday
+  type: time
+  source:
+    interval: 24h
+    location: America/Denver
+    days: [Monday, Tuesday, Wednesday, Thursday, Friday]
+    start: 6:00 AM
+    stop: 7:00 AM
+
 jobs:
 - name: ensure-pipelines-are-flown
   plan:
