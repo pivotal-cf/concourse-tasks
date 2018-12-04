@@ -15,4 +15,4 @@ fly -t superpipe login -k -n $TEAM_NAME \
   -p $PASSWORD
 fly -t superpipe sync
 
-$(dirname $0)/check-pipeline-deployment.exp
+EXPECT_SCRIPT=./deployments/$FLY_SCRIPT $(dirname $0)/check-pipeline-deployment.exp

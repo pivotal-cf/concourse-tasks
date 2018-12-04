@@ -1,7 +1,7 @@
 #!/usr/bin/expect -f
 
 set timeout 5
-spawn "deployments/$env(FLY_SCRIPT)"
+spawn "$env(EXPECT_SCRIPT)"
 
 expect {
   "no changes to apply" { exit 0 }
@@ -11,3 +11,5 @@ expect {
     exit 1
   }
 }
+
+exit 1
