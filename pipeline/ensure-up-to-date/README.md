@@ -11,7 +11,7 @@ environment variables in order to work in Concourse.
 
 Here's an example `FLY_SCRIPT`:
 ```bash
-fly -t superpipe set-pipeline --config ${PROJECTROOT}/pipelines/validation.yml \
+fly -t superpipe set-pipeline --config ${PROJECT_ROOT}/pipelines/validation.yml \
   --pipeline "${PIPELINE}" \
   --load-vars-from <(echo "${CREDS}") \
   --load-vars-from ${PROJECT_ROOT}/config/config.yml \
