@@ -24,4 +24,5 @@ params:
   GIT_USER_NAME: # The username of the committer to be used when pushing the updated repo
   BUMP: # PATCH, MINOR, or MAJOR
   GITHUB_RELEASE_NAME: # The name that will be given to the release on Github
+  RELEASE_NAME: # The file name prefix for the release tarball
   FETCH_DEPENDENCIES_SCRIPT: # The path to a script to fetch dependencies prior to creating the release (relative to release input)

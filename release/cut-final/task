@@ -50,7 +50,7 @@ pushd ${RELEASE_DIR}
 
   VERSION=$(version)
   bosh -n create-release \
-    --tarball=${WORKSPACE}/output-release/release-${VERSION}.tgz \
+    --tarball=${WORKSPACE}/output-release/${RELEASE_NAME}-${VERSION}.tgz \
     --version=${VERSION} \
     --final
 

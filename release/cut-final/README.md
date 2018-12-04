@@ -38,6 +38,7 @@ jobs:
       BLOBSTORE_ACCESS_KEY_ID: ((s3-access-key))
       BLOBSTORE_SECRET_ACCESS_KEY: ((s3-access-secret))
       GITHUB_RELEASE_NAME: My Release
+      RELEASE_NAME: my-release
       FETCH_DEPENDENCIES_SCRIPT: ./scripts/fetch-dependencies.sh --vendor-only=true
       BUMP: PATCH
   - put: release
