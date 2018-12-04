@@ -1,0 +1,61 @@
+# ensure-up-to-date
+
+This task ensures that pipelines match what is committed in the repo. It does
+not update any configuration, it just fails if fly detects changes.
+
+## Example
+
+The task requires a bit of special configuration to work when credentials are
+normally sourced from LastPass. Your `FLY_SCRIPT` should take credentials as
+environment variables in order to work in Concourse.
+
+Here's an example `FLY_SCRIPT`:
+```bash
+fly -t superpipe set-pipeline --config ${PROJECTROOT}/pipelines/validation.yml \
+  --pipeline "${PIPELINE}" \
+  --load-vars-from <(echo "${CREDS}") \
+  --load-vars-from ${PROJECT_ROOT}/config/config.yml \
+  --var=user="${USER}" \
+  --var=password="${PASSWORD}" \
+  --var=pipelinecreds="${CREDS}"
+```
+
+It's recommended to write a wrapper for this script that initializes variables
+from your credential store for interactive use.
+
+### Configuration
+
+```yaml
+resources:
+- name: deployments
+  type: git
+  source:
+    uri: ((deployments-repo))
+    branch: master
+    private_key: ((private-key))
+
+- name: concourse-tasks
+  type: git
+  source:
+    uri: git@github.com:pivotal-cf/concourse-tasks
+    branch: master
+    private_key: ((private-key))
+
+jobs:
+- name: ensure-pipelines-are-flown
+  plan:
+  - aggregate:
+    - get: deployments
+      trigger: true
+    - get: concourse-tasks
+    - get: before_workday
+      trigger: true
+  - task: validation-pipeline
+    file: concourse-tasks/pipeline/ensure-up-to-date/task.yml
+    params:
+      USER: ((user))
+      PASSWORD: ((password))
+      TEAM_NAME: ((team))
+      CREDS: ((pipelinecreds))
+      FLY_SCRIPT: scripts/fly-validation-pipeline.sh
+```

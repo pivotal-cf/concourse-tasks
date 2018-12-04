@@ -1,0 +1,17 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: concourse/concourse-pipeline-resource
+inputs:
+- name: deployments
+- name: concourse-tasks
+run:
+  path: concourse-tasks/pipeline/ensure-up-to-date/task
+params:
+  USER: # Username for logging in to concourse
+  PASSWORD: # Password for logging in to concourse
+  TEAM_NAME: # Team name for logging in to concourse
+  CREDS: # Credentials and config that need to be interpolated at runtime
+  FLY_SCRIPT: # Path to script (relative to deployments input) to fly the pipeline

@@ -1,0 +1,12 @@
+#!/usr/bin/expect -f
+
+set timeout 5
+spawn "$env(FLY_SCRIPT)"
+
+expect {
+  "no changes to apply" { exit 0 }
+  "apply configuration?" {
+  send "n\n"
+  send_user "Failed: Concourse and repo don't match"
+  exit 1
+}
