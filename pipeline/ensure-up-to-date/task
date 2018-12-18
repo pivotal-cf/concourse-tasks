@@ -6,7 +6,7 @@ export PATH="$PATH:$PWD"
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y -qq update && apt-get -y -qq install expect
 
-curl -o fly -L https://github.com/concourse/concourse/releases/download/v3.14.1/fly_linux_amd64
+curl -o fly -L ${CONCOURSE_URL}/api/v1/cli?arch=amd64&platform=linux
 chmod +x fly
 
 fly -t ${FLY_TARGET} login -n ${TEAM_NAME} \
