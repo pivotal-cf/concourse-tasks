@@ -10,8 +10,11 @@ inputs:
 run:
   path: concourse-tasks/pipeline/ensure-up-to-date/task
 params:
-  USER: # Username for logging in to concourse
-  PASSWORD: # Password for logging in to concourse
-  TEAM_NAME: # Team name for logging in to concourse
+  USER: # Username for logging into concourse
+  PASSWORD: # Password for logging into concourse
+  TEAM_NAME: # Team name for logging into concourse
   CREDS: # Credentials and config that need to be interpolated at runtime
   FLY_SCRIPT: # Path to script (relative to deployments input) to fly the pipeline
+  FLY_TARGET: # The target used in the script to fly the pipeline
+  CONCOURSE_URL: # URL for logging into concourse
+

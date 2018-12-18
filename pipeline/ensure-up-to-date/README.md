@@ -11,13 +11,7 @@ environment variables in order to work in Concourse.
 
 Here's an example `FLY_SCRIPT`:
 ```bash
-fly -t superpipe set-pipeline --config ${PROJECT_ROOT}/pipelines/validation.yml \
-  --pipeline "${PIPELINE}" \
-  --load-vars-from <(echo "${CREDS}") \
-  --load-vars-from ${PROJECT_ROOT}/config/config.yml \
-  --var=user="${USER}" \
-  --var=password="${PASSWORD}" \
-  --var=pipelinecreds="${CREDS}"
+fly -t concourse set-pipeline --config ${PROJECT_ROOT}/pipelines/validation.yml
 ```
 
 It's recommended to write a wrapper for this script that initializes variables
@@ -67,4 +61,6 @@ jobs:
       TEAM_NAME: ((team))
       CREDS: ((pipelinecreds))
       FLY_SCRIPT: scripts/fly-validation-pipeline.sh
+      FLY_TARGET: concourse
+      CONCOURSE_URL: https://concourse.com
 ```

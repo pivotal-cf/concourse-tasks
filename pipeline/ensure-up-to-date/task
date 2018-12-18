@@ -9,10 +9,10 @@ apt-get -y -qq update && apt-get -y -qq install expect
 curl -o fly -L https://github.com/concourse/concourse/releases/download/v3.14.1/fly_linux_amd64
 chmod +x fly
 
-fly -t superpipe login -k -n $TEAM_NAME \
-  -c https://concourse.superpipe.gcp.pcf-metrics.com \
-  -u $USER \
-  -p $PASSWORD
-fly -t superpipe sync
+fly -t ${FLY_TARGET} login -n ${TEAM_NAME} \
+  -c ${CONCOURSE_URL} \
+  -u ${USER} \
+  -p ${PASSWORD}
+fly -t ${FLY_TARGET} sync
 
-EXPECT_SCRIPT=./deployments/$FLY_SCRIPT $(dirname $0)/check-pipeline-deployment.exp
+EXPECT_SCRIPT=./deployments/${FLY_SCRIPT} $(dirname $0)/check-pipeline-deployment.exp
