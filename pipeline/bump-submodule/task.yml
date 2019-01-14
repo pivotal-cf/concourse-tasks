@@ -9,12 +9,13 @@ image_resource:
 inputs:
   - name: release-repo
   - name: submodule-repo
+  - name: concourse-tasks
 
 outputs:
   - name: bumped-release-repo
 
 run:
-  path: release-repo/ci/acceptance/scripts/bump_submodule.sh
+  path: concourse-tasks/pipeline/bump-submodule/task
 
 params:
   SUBMODULE_PATH:
