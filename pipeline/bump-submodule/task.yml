@@ -1,0 +1,23 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: golang
+
+inputs:
+  - name: release-repo
+  - name: submodule-repo
+  - name: concourse-tasks
+
+outputs:
+  - name: bumped-release-repo
+
+run:
+  path: concourse-tasks/pipeline/bump-submodule/task
+
+params:
+  SUBMODULE_PATH:
+  GIT_USER_NAME:
+  GIT_USER_EMAIL:
