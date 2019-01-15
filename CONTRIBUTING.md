@@ -1,6 +1,6 @@
 # Contributing
 
-Please PR any non-obvious changes or new tasks so they can be reviewed by another team.
+Please PR any non-obvious changes or new tasks and assign the PR to be reviewed by a member of another team.
 
 ## Adding new tasks
 
