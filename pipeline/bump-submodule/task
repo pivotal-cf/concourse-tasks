@@ -1,5 +1,6 @@
 #!/bin/bash
 set -ex
+source concourse-tasks/helpers/git.sh
 
 mkdir -p $HOME/.ssh
 ssh-keyscan -H github.com >> $HOME/.ssh/known_hosts
@@ -15,16 +16,5 @@ pushd "release-repo/$SUBMODULE_PATH"
   submodule_name=$(basename $(git rev-parse --show-toplevel))
 popd
 
-pushd release-repo
-  if [[ "$(git status --porcelain)" = "" ]]; then
-    echo "No changes to commit"
-  else
-    git config user.email "${GIT_USER_EMAIL}"
-    git config user.name "${GIT_USER_NAME}"
-
-    git add --all .
-    git commit -m "Bump ${submodule_name} submodule"
-  fi
-popd
-
+git_commit_all release-repo "Bump ${submodule_name} submodule"
 cp -r release-repo/. bumped-release-repo/
