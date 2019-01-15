@@ -12,7 +12,7 @@ popd
 pushd "release-repo/$SUBMODULE_PATH"
   git fetch ${submodule_repo_dir}
   git checkout "$target_sha"
-  submodule_name=$(basename `git rev-parse --show-toplevel`)
+  submodule_name=$(basename $(git rev-parse --show-toplevel))
 popd
 
 pushd release-repo
