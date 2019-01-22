@@ -54,8 +54,7 @@ pushd ${RELEASE_DIR}
     --version=${VERSION} \
     --final
 
-  git add -A
-  git commit -m "[ci skip] Cut final release $VERSION"
+  git_commit_all ${RELEASE_DIR} "[ci skip] Cut final release $VERSION"
   SHA=$(git rev-parse HEAD)
 popd
 
