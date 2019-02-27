@@ -13,7 +13,7 @@ popd
 function fetch_submodules() {
   local parent_dir=$1
   pushd ${parent_dir}
-    for submodule_path in $(git submodule | awk '{print $3}'); do
+    for submodule_path in $(git submodule | awk '{print $2}'); do
       pushd ${submodule_path}
         git fetch ${parent_dir}/${submodule_path}
         git checkout FETCH_HEAD
