@@ -10,10 +10,24 @@ pushd submodule-repo
   submodule_repo_dir=${PWD}
 popd
 
+function fetch_submodules() {
+  local parent_dir=$1
+  pushd ${parent_dir}
+    for submodule_path in $(git submodule | awk '{print $3}'); do
+      pushd ${submodule_path}
+        git fetch ${parent_dir}/${submodule_path}
+        git checkout FETCH_HEAD
+        fetch_submodules ${parent_dir}/${submodule_path}
+      popd
+    done
+  popd
+}
+
 pushd "release-repo/$SUBMODULE_PATH"
   git fetch ${submodule_repo_dir}
   git checkout "$target_sha"
   submodule_name=$(basename $(git rev-parse --show-toplevel))
+  fetch_submodules ${submodule_repo_dir}
 popd
 
 git_commit_all release-repo "Bump ${submodule_name} submodule"
