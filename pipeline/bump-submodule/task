@@ -14,6 +14,7 @@ function fetch_submodules() {
   local fetch_from_dir=$1
   for submodule_path in $(git submodule | awk '{print $2}'); do
     pushd ${submodule_path}
+      git init --quiet
       git fetch ${fetch_from_dir}/${submodule_path}
       git checkout FETCH_HEAD
       fetch_submodules ${fetch_from_dir}/${submodule_path}
