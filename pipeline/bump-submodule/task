@@ -27,6 +27,7 @@ pushd "release-repo/$SUBMODULE_PATH"
   git checkout "$target_sha"
   submodule_name=$(basename $(git rev-parse --show-toplevel))
   fetch_submodules ${submodule_repo_dir}
+  git clean -ffd
 popd
 
 git_commit_all release-repo "Bump ${submodule_name} submodule"
