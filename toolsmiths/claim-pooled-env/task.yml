@@ -1,0 +1,14 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: alpine
+
+inputs:
+  - name: pooled-env
+
+run:
+  path: cat
+  args: [ pooled-env/metadata ]
+  dir: ""
