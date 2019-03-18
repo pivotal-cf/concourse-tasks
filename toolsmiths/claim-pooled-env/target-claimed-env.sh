@@ -4,7 +4,7 @@ set -eu
 # source this file to target your interactive shell
 
 # Optional env overrides:
-# CONCOURSE_TEAM if other than 'denver'
+# CONCOURSE_TARGET if other than 'denver'
 # OM_PATH to save somewhere other than /tmp
 
 install-om() {
@@ -53,7 +53,8 @@ if [ $# -ne 1 ]; then
     return
 fi
 
-fly -t ${CONCOURSE_TEAM:-denver} w -j ${1} | tail -1  | sed 's/succeeded$//' >/tmp/claimed-metadata
+fly -t ${CONCOURSE_TARGET:-denver} login -b
+fly -t ${CONCOURSE_TARGET:-denver} w -j ${1} | tail -1  | sed 's/succeeded$//' >/tmp/claimed-metadata
 export ENV_NAME=$(jq .name -r /tmp/claimed-metadata)
 echo "Targeting ${ENV_NAME}."
 
