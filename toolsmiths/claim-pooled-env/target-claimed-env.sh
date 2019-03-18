@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-set -eu
-
 # source this file to target your interactive shell
 
 # Optional env overrides:
