@@ -18,10 +18,10 @@ resources:
 - name: weekday-mornings
   type: time
   source:
-    interval: 24h
-    start: 08:00
-    stop: 09:00
+    start: 8:00 AM
+    stop: 9:00 AM
     location: America/Denver
+    days: [Monday, Tuesday, Wednesday, Thursday, Friday]
 
 - name: slack-alert
   type: slack-notification
