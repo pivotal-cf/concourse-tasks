@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: relintdockerhubpushbot/cf-deployment-concourse-tasks
+
+inputs:
+- name: concourse-tasks
+
+outputs:
+- name: alert
+
+run:
+  path: concourse-tasks/postfacto/slack-action-items/task
+
+params:
+  POSTFACTO_JWT_TOKEN:
+  POSTFACTO_API_URL:
+  POSTFACTO_RETRO_URL:
