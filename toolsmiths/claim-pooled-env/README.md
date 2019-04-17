@@ -22,6 +22,12 @@ resources:
     pool_name: us_2_3
   tags: [ ((toolsmiths-workers-tag)) ]
 
+- name: concourse-tasks
+  type: git
+  source:
+    uri: https://github.com/pivotal-cf/concourse-tasks
+    branch: master
+
 resource_types:
 - name: pcf-pool
   type: docker-image
