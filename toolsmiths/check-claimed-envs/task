@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-(git clone git@github.com:pivotal/smith.git && cd smith && go install)
+(cd smith && go install)
 
 if [[ $(smith list -c) -eq 0 ]]; then
   exit 0

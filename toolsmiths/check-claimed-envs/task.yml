@@ -8,6 +8,7 @@ image_resource:
 
 inputs:
 - name: concourse-tasks
+- name: smith
 
 outputs:
 - name: alert
