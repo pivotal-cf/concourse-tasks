@@ -13,7 +13,7 @@ outputs:
 - name: alert
 
 run:
-  path: concourse-tasks/toolsmiths/claimed-envs/task
+  path: concourse-tasks/toolsmiths/check-claimed-envs/task
 
 params:
   TOOLSMITHS_API_TOKEN: # Toolsmiths API key for smith cli
