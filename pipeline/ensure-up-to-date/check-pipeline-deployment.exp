@@ -1,4 +1,4 @@
-#!/usr/bin/expect -f
+#!/usr/bin/expect -f -d
 
 set timeout 5
 spawn "$env(EXPECT_SCRIPT)"
@@ -7,7 +7,7 @@ expect {
   "no changes to apply" { exit 0 }
   "apply configuration?" {
     send "n\n"
-    send_user "Failed: Concourse and repo don't match"
+    send_user "Failed: Concourse and repo don't match\n"
     exit 1
   }
 }
