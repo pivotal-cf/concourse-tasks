@@ -18,6 +18,6 @@ run:
   path: concourse-tasks/pipeline/bump-submodule/task
 
 params:
-  SUBMODULE_PATH:
-  GIT_USER_NAME:
-  GIT_USER_EMAIL:
+  SUBMODULE_PATH: # Base path in which to recursively search for submodules
+  GIT_USER_NAME: # Username for committing updated submodules
+  GIT_USER_EMAIL: # User email for committing updated submodules
