@@ -1,4 +1,4 @@
-#!/usr/bin/expect -d -f
+#!/usr/bin/expect -f
 
 set timeout 5
 spawn "$env(EXPECT_SCRIPT)"

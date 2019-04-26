@@ -15,4 +15,4 @@ fly -t ${FLY_TARGET} login -n ${TEAM_NAME} \
   -p ${PASSWORD}
 fly -t ${FLY_TARGET} sync
 
-EXPECT_SCRIPT=$PWD/deployments/${FLY_SCRIPT} $(dirname $0)/check-pipeline-deployment.exp
+EXPECT_SCRIPT=$PWD/deployments/${FLY_SCRIPT} $(dirname $0)/check-pipeline-deployment.exp ${EXPECT_OPTS:-}
