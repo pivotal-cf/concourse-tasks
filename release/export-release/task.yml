@@ -1,0 +1,33 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: relintdockerhubpushbot/cf-deployment-concourse-tasks
+
+inputs:
+- name: concourse-tasks
+- name: bbl-state
+  optional: true
+- name: pas-env
+  optional: true
+
+outputs:
+- name: exported-release
+
+run:
+  path: concourse-tasks/release/cut-final/task
+
+params:
+  # Required
+  # The name of the release to export (should already be uploaded to bosh)
+  RELEASE_NAME:
+
+  # Optional
+  # Path to directory containing bbl-state.json relative to bbl-state input
+  BBL_STATE_DIR:
+
+  # Optional
+  # Path to metadata file for PAS env (used with OM)
+  ENV_METADATA:

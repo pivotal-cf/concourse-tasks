@@ -5,7 +5,7 @@
 # CONCOURSE_TARGET if other than 'denver'
 # OM_PATH to save somewhere other than /tmp
 
-source $(dirname $BASH_SOURCE)/claimed-env-helpers.sh
+source $(dirname $BASH_SOURCE)/../helpers/claimed-env.sh
 
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <concourse-job>"
