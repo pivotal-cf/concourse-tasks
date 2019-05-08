@@ -1,0 +1,24 @@
+#!/bin/bash -eux
+
+action_items_text=$(
+  curl "${POSTFACTO_API_URL}" \
+    -H "authorization: Bearer ${POSTFACTO_JWT_TOKEN}" | \
+    jq '
+      .retro.action_items
+      | map(select(.done == false))
+      | sort_by(.created_at)
+      | map(.created_at = (.created_at | sub("\\.\\d{3}Z$"; "Z") | fromdateiso8601 | strftime("%m/%d")))
+      | map("• " + .description + " [" + .created_at + "]")
+      | join("\n")
+    '
+)
+
+cat >> alert/attachments << EOF
+[
+  {
+    "title": "Action Items from $(basename ${POSTFACTO_RETRO_URL}) Retro",
+    "title_link": "${POSTFACTO_RETRO_URL}",
+    "text": ${action_items_text}
+  }
+]
+EOF

@@ -3,7 +3,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: golang
+    repository: relintdockerhubpushbot/cf-deployment-concourse-tasks
 inputs:
 - name: deployments
 - name: concourse-tasks
@@ -17,4 +17,5 @@ params:
   FLY_SCRIPT: # Path to script (relative to deployments input) to fly the pipeline
   FLY_TARGET: # The target used in the script to fly the pipeline
   CONCOURSE_URL: # URL for logging into concourse
+  EXPECT_OPTS: # Optional flags to specify when running expect
 

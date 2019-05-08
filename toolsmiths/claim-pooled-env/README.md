@@ -22,6 +22,12 @@ resources:
     pool_name: us_2_3
   tags: [ ((toolsmiths-workers-tag)) ]
 
+- name: concourse-tasks
+  type: git
+  source:
+    uri: https://github.com/pivotal-cf/concourse-tasks
+    branch: master
+
 resource_types:
 - name: pcf-pool
   type: docker-image
@@ -42,15 +48,15 @@ jobs:
     input_mapping:
       pooled-env: 2.3-env
 
-  - name: unclaim-2.3-env
-    plan:
-      - get: 2.3-env
-        tags: [ ((toolsmiths-workers-tag)) ]
-      - put: 2.3-env
-        params:
-          action: unclaim
-          env_file: 2.3-env/metadata
-        tags: [ ((toolsmiths-workers-tag)) ]
+- name: unclaim-2.3-env
+  plan:
+    - get: 2.3-env
+      tags: [ ((toolsmiths-workers-tag)) ]
+    - put: 2.3-env
+      params:
+        action: unclaim
+        env_file: 2.3-env/metadata
+      tags: [ ((toolsmiths-workers-tag)) ]
 ```
 
 [toolsmiths-onboarding]:  https://docs.google.com/document/d/1afCL7hgFeQ61orx6Z5bP49xauE753n5eSZPuO5bWJeY/edit#heading=h.rzx8m9ypluky

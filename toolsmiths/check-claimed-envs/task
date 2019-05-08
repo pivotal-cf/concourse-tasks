@@ -1,0 +1,19 @@
+#!/bin/bash -eux
+
+(cd smith && go install)
+
+if [[ $(smith list -c) -eq 0 ]]; then
+  exit 0
+fi
+
+cat > alert/attachments << EOF
+[
+  {
+    "title": "Claimed toolsmiths environments",
+    "title_link": "",
+    "text": $(smith list -q)
+  }
+]
+EOF
+
+exit 1

@@ -1,0 +1,20 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: golang
+
+inputs:
+- name: concourse-tasks
+- name: smith
+
+outputs:
+- name: alert
+
+run:
+  path: concourse-tasks/toolsmiths/check-claimed-envs/task
+
+params:
+  TOOLSMITHS_API_TOKEN: # Toolsmiths API key for smith cli
