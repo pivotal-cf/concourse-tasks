@@ -30,5 +30,5 @@ pushd "release-repo/$SUBMODULE_PATH"
   git clean -ffd
 popd
 
-git_commit_all release-repo "Bump ${submodule_name} submodule"
+git_commit_all release-repo "${COMMIT_MESSAGE:-Bump ${submodule_name} submodule}"
 cp -r release-repo/. bumped-release-repo/

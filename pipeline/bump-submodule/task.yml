@@ -21,3 +21,4 @@ params:
   SUBMODULE_PATH: # Base path in which to recursively search for submodules
   GIT_USER_NAME: # Username for committing updated submodules
   GIT_USER_EMAIL: # User email for committing updated submodules
+  COMMIT_MESSAGE: # Commit message; defaults to "Bump <submodule> submodule"
