@@ -12,7 +12,7 @@ if [ $# -ne 1 ]; then
     return
 fi
 
-fly -t ${CONCOURSE_TARGET:-denver} login -b
+fly -t ${CONCOURSE_TARGET:-denver} status 2>/dev/null || fly -t ${CONCOURSE_TARGET:-denver} login -b
 fly -t ${CONCOURSE_TARGET:-denver} w -j ${1} | tail -1  | sed 's/succeeded$//' >/tmp/claimed-metadata
 export ENV_NAME=$(jq .name -r /tmp/claimed-metadata)
 echo "Targeting ${ENV_NAME}."
