@@ -12,4 +12,5 @@ expect {
   }
 }
 
+send_user "Failed: Timeout or error running expect script - consider setting EXPECT_OPTS='-d' for debug output\n"
 exit 1
