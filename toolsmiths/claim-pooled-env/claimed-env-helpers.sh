@@ -40,5 +40,5 @@ bosh-login() {
 }
 
 get-cf-deployment-name() {
-  bosh deployments --json | jq -r '.Tables[].Rows | map(select(.release_s | contains("garden-runc"))) | .[0].name'
+  bosh deployments --json | jq -r '.Tables[].Rows | map(select(.release_s | contains("capi"))) | .[0].name'
 }
