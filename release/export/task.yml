@@ -1,0 +1,37 @@
+platform: linux
+
+inputs:
+- name: concourse-tasks
+- name: tile-src
+- name: tile-version
+
+# One of pas-env or bbl-state is required
+- name: pas-env
+  optional: true
+- name: bbl-state
+  optional: true
+
+outputs:
+- name: exported-releases
+
+run:
+  path: concourse-tasks/release/export/task
+
+params:
+  # Required
+  STEMCELL_OS: ubuntu-xenial
+
+  # Optional - will default to latest stemcell on bosh director
+  STEMCELL_VERSION:
+
+  # Required
+  BLOBSTORE_ACCESS_ID:
+
+  # Required
+  BLOBSTORE_SECRET_ACCESS_KEY:
+
+  # Required - list of release names to export
+  RELEASE_NAMES:
+
+  # Optional - path to directory containing bbl-state.json relative to bbl-state input
+  BBL_STATE_DIR:

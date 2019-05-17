@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+root_dir=$(pwd)
+concourse_tasks_dir=${root_dir}/concourse-tasks
+source ${concourse_tasks_dir}/helpers/environment-targeting.sh
+source ${concourse_tasks_dir}/helpers/parallel.sh
+
+target-bosh
+
+if [[ -z ${STEMCELL_VERSION} ]]; then
+  export STEMCELL_VERSION=$(bosh stemcells --column "Version" --column "OS" | grep ${STEMCELL_OS} | awk '{print $2"/"$1}' | sed 's/\*//g' | head -n 1)
+else
+  bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-${STEMCELL_OS}-go_agent?v=${STEMCELL_VERSION}
+fi
+
+declare -a export_release_calls
+
+while read release_name; do
+  if [[ -z ${release_name} ]]; then break; fi
+
+  export_release_calls+=("${concourse_tasks_dir}/release/export/export-release.sh ${release_name}")
+done <<< "${RELEASE_NAMES}"
+
+printf "\n\n ******************* Exporting releases ******************* \n\n"
+run_tasks_in_parallel "export releases" "${export_release_calls[@]}"
