@@ -2,8 +2,7 @@
 
 function target-bosh() {
   if [[ -d pas-env ]]; then
-    #TODO move this
-    source $(dirname $BASH_SOURCE)/toolsmiths-env-helpers.sh
+    source $(dirname $BASH_SOURCE)/toolsmiths.sh
     retry 3 bosh-login $PWD/pas-env/metadata
   elif [[ -d bbl-state ]]; then
     pushd "bbl-state/$BBL_STATE_DIR"
