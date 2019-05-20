@@ -2,7 +2,7 @@
 set -eu
 
 root_dir=$(cd $(dirname $BASH_SOURCE)/../../.. && pwd -P)
-source $(dirname $BASH_SOURCE)/concourse-tasks/helpers/environment-targeting.sh
+source ${root_dir}/concourse-tasks/helpers/environment-targeting.sh
 target-bosh
 
 release_name=$1
