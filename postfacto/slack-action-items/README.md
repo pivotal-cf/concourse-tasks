@@ -51,11 +51,11 @@ jobs:
     file: concourse-tasks/postfacto/slack-action-items/task.yml
     params:
       POSTFACTO_RETRO_URL: "https://retros.cfapps.io/retros/my-retro"
-      # `POSTFACTO_API_URL` and `POSTFACTO_JWT_TOKEN` can be found by loading your retro
-      # with the Network developer console open. The JWT token is the text after `Bearer`
-      # in the `Authentication` header.
+      # `POSTFACTO_API_URL` can be found by loading your retro
+      # with the Network developer console open.
+      # `POSTFACTO_PASSWORD` is the password you log into your retro with.
       POSTFACTO_API_URL: "https://retros-iad-api.cfapps.io/retros/my-retro"
-      POSTFACTO_JWT_TOKEN: ((postfacto-jwt-token))
+      POSTFACTO_PASSWORD: ((postfacto-password))
 
   - put: slack-alert
     params:
