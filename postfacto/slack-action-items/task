@@ -1,7 +1,7 @@
 #!/bin/bash -eux
 
 action_items_text=$(
-  curl "${POSTFACTO_API_URL}" \
+  curl -f "${POSTFACTO_API_URL}" \
     -H "authorization: Bearer ${POSTFACTO_JWT_TOKEN}" | \
     jq '
       .retro.action_items
