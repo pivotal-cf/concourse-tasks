@@ -1,8 +1,10 @@
-#!/bin/bash -eux
+#!/bin/bash
+set -euxo pipefail
 
-action_items_text=$(
-  curl -f "${POSTFACTO_API_URL}" \
-    -H "authorization: Bearer ${POSTFACTO_JWT_TOKEN}" | \
+postfacto_response=$(curl -f "${POSTFACTO_API_URL}" \
+  -H "authorization: Bearer ${POSTFACTO_JWT_TOKEN}")
+
+action_items_text=$(echo ${postfacto_response} | \
     jq '
       .retro.action_items
       | map(select(.done == false))
