@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -eu
 
-root_dir=$(pwd)
-source ${root_dir}/helpers/environment-targeting.sh
+root_dir=$(dirname $BASH_SOURCE)/../../..
+source $(dirname $BASH_SOURCE)/concourse-tasks/helpers/environment-targeting.sh
 target-bosh
 
 release_name=$1
