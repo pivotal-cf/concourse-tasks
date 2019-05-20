@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-root_dir=$($(dirname $BASH_SOURCE)/../../.. && pwd -P)
+root_dir=$(cd $(dirname $BASH_SOURCE)/../../.. && pwd -P)
 source $(dirname $BASH_SOURCE)/concourse-tasks/helpers/environment-targeting.sh
 target-bosh
 
