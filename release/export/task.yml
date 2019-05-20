@@ -2,8 +2,6 @@ platform: linux
 
 inputs:
 - name: concourse-tasks
-- name: tile-src
-- name: tile-version
 
 # One of pas-env or bbl-state is required
 - name: pas-env
