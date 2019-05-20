@@ -2,6 +2,11 @@
 set -eo pipefail
 
 function run_tasks_in_parallel() {
+  if ! command -v parallel >/dev/null; then
+    apt-get update
+    apt-get install --yes parallel
+  fi
+
   task_type=$1
   echo "Running ${task_type} in Parallel."
 
