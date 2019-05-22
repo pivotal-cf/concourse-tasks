@@ -10,9 +10,18 @@ target-bosh
 
 release_name=$1
 release_version=$(bosh releases --column "Version" --column "Name" | grep ${release_name} | awk '{print $2}' | sed 's/\*//g' | head -n 1)
+deployment_name="compilation-${release_name}-${release_version}"
+
+function cleanup() {
+  bosh --non-interactive \
+  -d ${deployment_name} \
+  delete-deployment
+}
+
+trap cleanup EXIT
 
 bosh deploy --non-interactive -d compilation-${release_name}-${release_version} <(cat <<EOF
-name: compilation-${release_name}-${release_version}
+name: ${deployment_name}
 releases:
 - name: ${release_name}
   version: "${release_version}"
@@ -30,9 +39,8 @@ EOF
 )
 
 bosh \
-  -d compilation-${release_name}-${release_version} \
+  -d ${deployment_name} \
   export-release \
   ${release_name}/${release_version} \
   ${STEMCELL_OS}/${STEMCELL_VERSION} \
   --dir=${root_dir}/exported-releases
-
