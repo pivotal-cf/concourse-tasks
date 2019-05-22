@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -exo pipefail
+set -eo pipefail
 
 root_dir=$(cd $(dirname $BASH_SOURCE)/../../.. && pwd -P)
 source ${root_dir}/concourse-tasks/helpers/environment-targeting.sh
