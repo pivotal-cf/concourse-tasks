@@ -6,7 +6,7 @@ source ${root_dir}/concourse-tasks/helpers/environment-targeting.sh
 target-bosh
 
 release_name=$1
-release_version=$(bosh releases --column "Version" --column "Name" | grep ${release_name} | awk '{print $2"/"$1}' | sed 's/\*//g' | head -n 1)
+release_version=$(bosh releases --column "Version" --column "Name" | grep ${release_name} | awk '{print $2}' | sed 's/\*//g' | head -n 1)
 
 bosh deploy --non-interactive -d compilation-${release_name}-${release_version} <(cat <<EOF
 name: compilation-${release_name}-${release_version}
