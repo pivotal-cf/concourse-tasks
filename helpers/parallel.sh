@@ -4,7 +4,7 @@ set -eo pipefail
 function run_tasks_in_parallel() {
   if ! command -v parallel >/dev/null; then
     apt-get update >/dev/null
-    apt-get install --yes parallel >/dev/null
+    apt-get install --yes parallel >/dev/null 2>&1
   fi
 
   task_type=$1
