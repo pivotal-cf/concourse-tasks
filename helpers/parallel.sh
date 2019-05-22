@@ -7,6 +7,7 @@ function run_tasks_in_parallel() {
     apt-get install --yes parallel >/dev/null
   fi
 
+  TERM=linux
   task_type=$1
   echo "Running ${task_type} in Parallel."
 
