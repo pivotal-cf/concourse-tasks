@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 set -eo pipefail
+if [[ -z ${DEBUG} && "$DEBUG" = true ]]; then
+  set -x
+fi
 
 root_dir=$(pwd)
 concourse_tasks_dir=${root_dir}/concourse-tasks

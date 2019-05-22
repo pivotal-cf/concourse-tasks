@@ -39,3 +39,6 @@ params:
 
   # Optional - path to directory containing bbl-state.json relative to bbl-state input
   BBL_STATE_DIR:
+
+  # Optional - will `set -x` if true
+  DEBUG: false
