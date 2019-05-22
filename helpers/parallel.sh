@@ -4,7 +4,7 @@ set -eo pipefail
 function run_tasks_in_parallel() {
   if ! command -v parallel >/dev/null; then
     apt-get update >/dev/null
-    apt-get install --yes parallel >/dev/null 2>&1
+    apt-get install --yes parallel >/dev/null
   fi
 
   task_type=$1
@@ -12,6 +12,7 @@ function run_tasks_in_parallel() {
 
   shift
   printf "\n\n"
+  _PARALLEL_OPTIONS="--halt-on-error now,fail=1 --will-cite"
   if parallel ${_PARALLEL_OPTIONS} bash -c '"set -exo pipefail;"{}' ::: "$@"; then
     echo "Running ${task_type} in Parallel Finished."
     return 0
