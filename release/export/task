@@ -9,7 +9,7 @@ source ${concourse_tasks_dir}/helpers/parallel.sh
 target-bosh
 
 if [[ -z ${STEMCELL_VERSION} ]]; then
-  export STEMCELL_VERSION=$(bosh stemcells --column "Version" --column "OS" | grep ${STEMCELL_OS} | awk '{print $2}' | sed 's/\*//g' | head -n 1)
+  export STEMCELL_VERSION=$(bosh stemcells --column "Version" --column "OS" | grep ${STEMCELL_OS} | awk '{print $1}' | sed 's/\*//g' | head -n 1)
 else
   bosh upload-stemcell https://bosh.io/d/stemcells/bosh-google-kvm-${STEMCELL_OS}-go_agent?v=${STEMCELL_VERSION}
 fi
