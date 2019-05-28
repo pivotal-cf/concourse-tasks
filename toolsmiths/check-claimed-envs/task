@@ -1,4 +1,5 @@
-#!/bin/bash -eux
+#!/bin/bash -eu
+set -o pipefail
 
 response=$(curl -s "https://environments.toolsmiths.cf-app.com/pooled_gcp_engineering_environments/list?api_token=${TOOLSMITHS_API_TOKEN}")
 
