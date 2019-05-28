@@ -1,7 +1,6 @@
 # check-claimed-envs
 
-This task uses the `smith` CLI tool to check for claimed pooled toolsmiths
-environments.
+This task uses the Toolsmiths API to check for claimed pooled environments.
 
 ## Example
 
@@ -17,6 +16,7 @@ jobs:
     file: concourse-tasks/toolsmiths/check-claimed-envs/task.yml
     params:
       TOOLSMITHS_API_TOKEN: ((toolsmiths-api-key))
+    tags: [ ((toolsmiths-workers-tag)) ]
 
   - put: slack-alert
     params:
@@ -44,6 +44,3 @@ resource_types:
     tag: latest
 
 ```
-
-[toolsmiths-onboarding]:  https://docs.google.com/document/d/1afCL7hgFeQ61orx6Z5bP49xauE753n5eSZPuO5bWJeY/edit#heading=h.rzx8m9ypluky
-[toolsmiths-faq]:         https://environments.toolsmiths.cf-app.com/faq
