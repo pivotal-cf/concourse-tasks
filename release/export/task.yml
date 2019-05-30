@@ -28,12 +28,6 @@ params:
   # Optional - will default to latest stemcell on bosh director
   STEMCELL_VERSION:
 
-  # Required
-  BLOBSTORE_ACCESS_ID:
-
-  # Required
-  BLOBSTORE_SECRET_ACCESS_KEY:
-
   # Required - list of release names to export
   RELEASE_NAMES:
 
