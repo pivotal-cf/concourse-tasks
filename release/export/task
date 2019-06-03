@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
-if [[ -z ${DEBUG} && "$DEBUG" = true ]]; then
+if [[ "$DEBUG" == "true" ]]; then
   set -x
 fi
 

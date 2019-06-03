@@ -9,10 +9,10 @@ function run_tasks_in_parallel() {
 
   TERM=linux
   task_type=$1
-  echo "Running ${task_type} in Parallel."
-
   shift
-  printf "\n\n"
+
+  echo -e "Running ${task_type} in Parallel.\n\n"
+
   _PARALLEL_OPTIONS="--halt-on-error now,fail=1 --will-cite"
   if parallel ${_PARALLEL_OPTIONS} bash -c '"set -exo pipefail;"{}' ::: "$@"; then
     echo "Running ${task_type} in Parallel Finished."
