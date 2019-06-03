@@ -1,8 +1,17 @@
-#!/bin/bash -eux
+#!/bin/bash
+set -euxo pipefail
 
-action_items_text=$(
-  curl "${POSTFACTO_API_URL}" \
-    -H "authorization: Bearer ${POSTFACTO_JWT_TOKEN}" | \
+postfacto_login_response=$(curl -f "${POSTFACTO_API_URL}/login" \
+  --request PUT \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data-binary "{\"retro\":{\"password\":\"${POSTFACTO_PASSWORD}\"}}")
+
+postfacto_token=$(echo ${postfacto_login_response} | jq -r .token)
+postfacto_response=$(curl -f "${POSTFACTO_API_URL}" \
+  -H "authorization: Bearer ${postfacto_token}")
+
+action_items_text=$(echo ${postfacto_response} | \
     jq '
       .retro.action_items
       | map(select(.done == false))

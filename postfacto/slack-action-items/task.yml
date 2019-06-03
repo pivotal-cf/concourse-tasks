@@ -16,6 +16,6 @@ run:
   path: concourse-tasks/postfacto/slack-action-items/task
 
 params:
-  POSTFACTO_JWT_TOKEN:
+  POSTFACTO_PASSWORD:
   POSTFACTO_API_URL:
   POSTFACTO_RETRO_URL:

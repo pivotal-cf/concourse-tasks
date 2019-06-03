@@ -1,19 +1,15 @@
-#!/bin/bash -eux
+#!/bin/bash -eu
+set -o pipefail
 
-(cd smith && go install)
+response=$(curl -s "https://environments.toolsmiths.cf-app.com/pooled_gcp_engineering_environments/list?api_token=${TOOLSMITHS_API_TOKEN}")
 
-if [[ $(smith list -c) -eq 0 ]]; then
-  exit 0
-fi
+echo ${response} | jq
+echo ${response} | jq '.[].notes |= if (. | length) == 0 then "manually claimed" else . end
+  | sort_by(-.claim_duration_hours)
+  | map( .name + "(" + (.claim_duration_hours | tostring) + "h) -  " + .notes )
+  | join( "\n" )
+  | [ { "title": "Claimed GCP Environments",
+        "title_link": "https://concourse.cf-denver.com/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME",
+         text: . } ]' > alert/attachments
 
-cat > alert/attachments << EOF
-[
-  {
-    "title": "Claimed toolsmiths environments",
-    "title_link": "",
-    "text": $(smith list -q)
-  }
-]
-EOF
-
-exit 1
+exit $(echo $response | jq '. | length')
