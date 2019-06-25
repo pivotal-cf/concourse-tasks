@@ -7,6 +7,7 @@ ssh-keyscan -H github.com >> $HOME/.ssh/known_hosts
 
 pushd submodule-repo
   target_sha="$(git rev-parse HEAD)"
+  submodule_last_commit=$(git log ${target_sha} --pretty=format:'%h %an: %s' -n 1)
   submodule_repo_dir=${PWD}
 popd
 
@@ -30,5 +31,7 @@ pushd "release-repo/$SUBMODULE_PATH"
   git clean -ffd
 popd
 
-git_commit_all release-repo "${COMMIT_MESSAGE:-Bump ${submodule_name} submodule}"
+git_commit_all release-repo "${COMMIT_MESSAGE:-Bump ${submodule_name} submodule to SHA: ${target_sha}
+
+            ${submodule_last_commit}}"
 cp -r release-repo/. bumped-release-repo/
