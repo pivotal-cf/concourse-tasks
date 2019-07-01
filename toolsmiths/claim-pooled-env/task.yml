@@ -13,9 +13,9 @@ run:
   args:
     - "-c"
     - |
-      set -exuo pipefail
+      set -euo pipefail
 
       apk add --no-cache jq
       jq .ops_manager pooled-env/metadata
       printf '\n\n'
-      jq pooled-env/metadata
+      jq . pooled-env/metadata
