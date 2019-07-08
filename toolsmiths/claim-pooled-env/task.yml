@@ -6,9 +6,16 @@ image_resource:
     repository: alpine
 
 inputs:
-  - name: pooled-env
+- name: pooled-env
 
 run:
-  path: cat
-  args: [ pooled-env/metadata ]
-  dir: ""
+  path: /bin/sh
+  args:
+    - "-c"
+    - |
+      set -euo pipefail
+
+      apk add --no-cache jq > /dev/null
+      jq .ops_manager pooled-env/metadata
+      printf '\n\n'
+      jq . pooled-env/metadata
