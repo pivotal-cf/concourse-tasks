@@ -13,7 +13,7 @@ run:
   args:
     - "-c"
     - |
-      set -euo pipefail
+      set -eu
 
       apk add --no-cache jq > /dev/null
       jq .ops_manager pooled-env/metadata
