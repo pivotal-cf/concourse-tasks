@@ -28,7 +28,7 @@ releases:
 stemcells:
 - alias: default
   os: ${STEMCELL_OS}
-  version: ${STEMCELL_VERSION}
+  version: "${STEMCELL_VERSION}"
 instance_groups: []
 update:
   canaries: 1
@@ -42,5 +42,5 @@ bosh \
   -d ${deployment_name} \
   export-release \
   ${release_name}/${release_version} \
-  ${STEMCELL_OS}/${STEMCELL_VERSION} \
+  "${STEMCELL_OS}/${STEMCELL_VERSION}" \
   --dir=${root_dir}/exported-releases
