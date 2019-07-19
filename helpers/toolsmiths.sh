@@ -5,7 +5,8 @@
 install-om() {
   if ! which om >/dev/null; then
       OM_PATH=${OM_PATH:-$(mktemp -d)}
-      curl -sL https://github.com/pivotal-cf/om/releases/latest/download/om-$(uname | tr '[:upper:]' '[:lower:]') >$OM_PATH/om
+      tag=$(curl -sL https://api.github.com/repos/pivotal-cf/om/releases/latest | jq -r .name)
+      curl -sL https://github.com/pivotal-cf/om/releases/latest/download/om-$(uname | tr '[:upper:]' '[:lower:]')-$tag >$OM_PATH/om
       chmod +x $OM_PATH/om
       export PATH="$PATH:$OM_PATH"
   fi
