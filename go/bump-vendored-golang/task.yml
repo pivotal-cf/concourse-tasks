@@ -22,4 +22,6 @@ params:
   GIT_USER_EMAIL: # The email of the committer to be used when pushing the updated repo
   GIT_USER_NAME: # The username of the committer to be used when pushing the updated repo
   GOLANG_DIR: golang-release
+  GOLANG_OS_S: |
+    linux
   RELEASE_DIR: release
