@@ -11,14 +11,14 @@ if [ $# -ne 1 ]; then
     return 1
 fi
 
-export ENV_NAME=$1
-echo "Targeting ${ENV_NAME}."
+export BOSH_ENV_NAME=$1
+echo "Targeting ${BOSH_ENV_NAME}."
 
-if ! smith read -e ${ENV_NAME} > /tmp/claimed-metadata; then
+if ! smith read -e ${BOSH_ENV_NAME} > /tmp/claimed-metadata; then
   return 1;
 fi
 
-export ENV_METADATA="/tmp/${ENV_NAME}-metadata"
+export ENV_METADATA="/tmp/${BOSH_ENV_NAME}-metadata"
 mv /tmp/claimed-metadata ${ENV_METADATA}
 
 echo "Bosh Login"
