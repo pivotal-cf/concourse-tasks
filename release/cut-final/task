@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -ex
+source concourse-tasks/helpers/git.sh
 
 WORKSPACE="$(pwd)"
 RELEASE_DIR="${WORKSPACE}/release"
