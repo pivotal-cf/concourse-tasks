@@ -19,6 +19,7 @@ run:
 params:
   BLOBSTORE_ACCESS_KEY_ID: # ID of the blobstore access key for the bosh release
   BLOBSTORE_SECRET_ACCESS_KEY: # Secret of the blobstore access key for the bosh release
+  GCS_JSON_KEY: # GCP service account key to access the GCS bucket
   GIT_USER_EMAIL: # The email of the committer to be used when pushing the updated repo
   GIT_USER_NAME: # The username of the committer to be used when pushing the updated repo
   GOLANG_DIR: golang-release

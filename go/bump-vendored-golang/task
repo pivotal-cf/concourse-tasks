@@ -17,7 +17,7 @@ blobstore:
   options:
     credentials_source: static
     json_key: |
-      $(echo ${JSON_KEY})
+      $(echo ${GCS_JSON_KEY})
 EOF
   else
   # setup private.yml used by `create-release --final`
