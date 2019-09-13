@@ -7,8 +7,6 @@ git config --global user.name "${GIT_USER_NAME}"
 GOLANG_RELEASE="$(pwd)/${GOLANG_DIR}"
 
 function make_private_yaml {
-  blobstore_provider=$(yq r config/final.yml blobstore.provider)
-
   if cat ~/workspace/log-cache-release/config/final.yml | grep "provider: gcs" > /dev/null ; then
     cat > config/private.yml <<EOF
 ---
