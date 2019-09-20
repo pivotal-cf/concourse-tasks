@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -exu
 
 git config --global user.email "${GIT_USER_EMAIL}"
@@ -8,13 +7,25 @@ git config --global user.name "${GIT_USER_NAME}"
 GOLANG_RELEASE="$(pwd)/${GOLANG_DIR}"
 
 function make_private_yaml {
-  cat > config/private.yml <<EOF
+  if grep -q "provider: gcs" config/final.yml ; then
+    cat > config/private.yml <<EOF
+---
+blobstore:
+  options:
+    credentials_source: static
+    json_key: |
+      ${GCS_JSON_KEY}
+EOF
+  else
+  # setup private.yml used by `create-release --final`
+    cat > config/private.yml <<EOF
 ---
 blobstore:
   options:
     access_key_id: ${BLOBSTORE_ACCESS_KEY_ID}
     secret_access_key: ${BLOBSTORE_SECRET_ACCESS_KEY}
 EOF
+  fi
 }
 
 function commit_if_changed {
