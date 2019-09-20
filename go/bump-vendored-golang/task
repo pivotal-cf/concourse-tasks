@@ -7,14 +7,14 @@ git config --global user.name "${GIT_USER_NAME}"
 GOLANG_RELEASE="$(pwd)/${GOLANG_DIR}"
 
 function make_private_yaml {
-  if cat config/final.yml | grep "provider: gcs" > /dev/null ; then
+  if grep -q "provider: gcs" config/final.yml ; then
     cat > config/private.yml <<EOF
 ---
 blobstore:
   options:
     credentials_source: static
     json_key: |
-      $(echo ${GCS_JSON_KEY})
+      ${GCS_JSON_KEY}
 EOF
   else
   # setup private.yml used by `create-release --final`
