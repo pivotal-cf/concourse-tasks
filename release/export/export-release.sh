@@ -10,7 +10,7 @@ target-bosh
 
 release_name=$1
 release_version=$(bosh releases --column "Version" --column "Name" | grep ${release_name} | awk '{print $2}' | sed 's/\*//g' | head -n 1)
-deployment_name="compilation-${release_name}-${release_version}"
+deployment_name="compilation-${release_name}-${release_version}-${STEMCELL_OS}"
 
 function cleanup() {
   bosh --non-interactive \
