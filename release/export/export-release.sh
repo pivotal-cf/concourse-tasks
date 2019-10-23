@@ -20,7 +20,7 @@ function cleanup() {
 
 trap cleanup EXIT
 
-bosh deploy --non-interactive -d compilation-${release_name}-${release_version} <(cat <<EOF
+bosh deploy --non-interactive -d "${deployment_name}" <(cat <<EOF
 name: ${deployment_name}
 releases:
 - name: ${release_name}
