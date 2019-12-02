@@ -42,6 +42,11 @@ pushd ${RELEASE_DIR}
   make_private_yaml
 
   for os in ${GOLANG_OS_S}; do
+    if [[ ! -d packages/golang-1-${os} ]]; then
+      echo "golang-1-${os} is not vendored"
+      exit 1
+    fi
+
     bosh vendor-package golang-1-${os} ${GOLANG_RELEASE}
     git add .final_builds/packages/golang-1-${os}/index.yml
     git add packages/golang-1-${os}/spec.lock
