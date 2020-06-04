@@ -9,8 +9,10 @@ image_resource:
 inputs:
 - name: concourse-tasks
 
-# One of pas-env or bbl-state is required
+# One of pas-env, cfd-env, or bbl-state is required
 - name: pas-env
+  optional: true
+- name: cfd-env
   optional: true
 - name: bbl-state
   optional: true
